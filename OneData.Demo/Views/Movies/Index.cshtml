@@ -1,0 +1,21 @@
+﻿@using OneData.Demo.Enums
+@model OneData.Demo.ViewModels.MoviesViewModel
+@{
+    ViewData["Title"] = "Movies";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    if (Model.DisplayMode == DisplayModes.NotAllowed)
+    {
+        await Html.RenderPartialAsync("_NotAllowed");
+    }
+    if (Model.DisplayMode == DisplayModes.Catalog || Model.DisplayMode == DisplayModes.Search)
+    {
+        await Html.RenderPartialAsync(string.Format("_{0}Catalog", Model.ControllerName), Model);
+    }
+    if (Model.DisplayMode == DisplayModes.Edit || Model.DisplayMode == DisplayModes.New)
+    {
+        await Html.RenderPartialAsync(string.Format("_{0}Edit", Model.ControllerName), Model);
+    }
+}

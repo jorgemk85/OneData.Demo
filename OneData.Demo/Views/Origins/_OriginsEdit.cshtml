@@ -1,0 +1,49 @@
+﻿@using OneData.Demo.Enums
+@model OneData.Demo.ViewModels.OriginsViewModel
+
+<div class="container modal-contentbox p-5">
+    <div class="shadow p-3 mb-5 bg-white rounded">
+        <div class="col-12 p-0">
+            <h4>Edit origin</h4>
+        </div>
+        <hr />
+        @using (Html.BeginForm("SaveEdited", Model.ControllerName, FormMethod.Post, new { id = "form-edit" }))
+        {
+        @Html.HiddenFor(m => m.Selected.Id)
+        @Html.HiddenFor(m => m.Selected.DateCreated)
+        @Html.HiddenFor(m => m.Selected.DateModified)
+        <div class="row">
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.Selected.Name, new { style = "max-width: unset;" })
+                <div class="input-group mb-2">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text" style="width:3em;"><i class="fa fa-heart"></i></div>
+                    </div>
+                    @Html.TextBoxFor(m => m.Selected.Name, new { @class = "form-control", style = "max-width: unset;" })
+                </div>
+                @Html.ValidationMessageFor(m => m.Selected.Name, null, new { @class = "text-warning" })
+            </div>
+        </div>
+
+        }
+        <hr />
+        <div class="row">
+            <div class="col-6 d-flex justify-content-end">
+                @{
+                    if (Model.DisplayMode == DisplayModes.Edit)
+                    {
+                    <input type="button" id="saveChanges" onclick="saveFormData(false, '@Model.ControllerName', '')" value="Save" class="btn btn-success btn-sm w-100 align-self-end" style="max-width:unset;" />
+                    }
+                    else if (Model.DisplayMode == DisplayModes.New)
+                    {
+                    <input type="button" id="saveNew" onclick="saveFormData(true, '@Model.ControllerName', '')" value="Save" class="btn btn-success btn-sm w-100 align-self-end" style="max-width:unset;" />
+                    }
+                }
+            </div>
+            <div class="col-6 d-flex justify-content-end">
+                <input type="button" onclick="toggleModificacionModal()" name="cancel" value="Cancel" class="btn btn-danger btn-sm w-100 align-self-end" style="max-width:unset;" />
+            </div>
+        </div>
+
+    </div>
+</div>

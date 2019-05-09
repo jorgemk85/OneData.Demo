@@ -1,0 +1,50 @@
+﻿@model OneData.Demo.ViewModels.OriginsViewModel
+
+<div class="pt-4 bg-light m-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h4>Search</h4>
+            </div>
+        </div>
+        @using (Html.BeginForm("Search", Model.ControllerName, FormMethod.Post))
+        {
+            <div class="row">
+                <div class="col-8 col-lg-5">
+                    @Html.TextBoxFor(m => m.SearchQuery, new { placeholder = "Write the name of the origin you are looking for.", @class = "form-control w-100", style = "max-width: unset;" })
+                </div>
+                <div class="col-4 col-lg-7">
+                    <input type="submit" name="answer" value="Search" class="btn btn-info float-right" />
+                </div>
+            </div>
+        }
+    </div>
+    <hr />
+</div>
+<div class="container pt-1">
+    <div class="row pb-1">
+        <div class="col-10">
+            <h5>Movies</h5>
+        </div>
+        <div class="col-2">
+            <input type="button" name="answer" onclick="loadModificationModal('/@Model.ControllerName/New')" value="New" class="btn btn-sm btn-outline-primary float-right" />
+        </div>
+    </div>
+    <div class="row" id="tableData">
+        @{await Html.RenderPartialAsync(string.Format("_{0}Table", Model.ControllerName), Model); }
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <input id="LoadNext" class="btn btn-primary float-right ml-3" onclick="getData('/@Model.ControllerName/LoadNext', null, onLoadPageSuccess)" type="button" name="next" value="Next" />
+            <input id="LoadPrevious" class="btn btn-primary float-right" onclick="getData('/@Model.ControllerName/LoadPrevious', null, onLoadPageSuccess)" type="button" name="previous" value="Previous" />
+        </div>
+    </div>
+</div>
+
+@*Aqui se carga el modal para agregar o editar*@
+<div id="modificationModal" class="modal"></div>
+
+<script type="text/javascript">
+    var modificationModal = document.getElementById("modificationModal");
+</script>
+

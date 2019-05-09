@@ -1,0 +1,42 @@
+﻿@model OneData.Demo.ViewModels.MoviesViewModel
+
+<div class="col-md-12 table-responsive">
+    <table class="table text-center table-sm justify-content-center">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Origin</th>
+                <th>Rating</th>
+                <th>Created</th>
+                <th>Updated</th>
+                <th colspan="2">Actions</th>
+            </tr>
+
+        </thead>
+        <tbody>
+            @if (Model.Collection.Count == 0)
+            {
+                <tr class="no-data">
+                    <td colspan="6" style="text-align: center;">Without movies for now.</td>
+                </tr>
+            }
+            @{
+                foreach (Movie myModel in Model.Collection)
+                {
+                <tr>
+                    <td style="vertical-align: unset;">@myModel.Name</td>
+                    <td style="vertical-align: unset;">@myModel.OriginName</td>
+                    <td style="vertical-align: unset;">@myModel.Rating.ToString()</td>
+                    <td style="vertical-align: unset;">@myModel.DateCreated</td>
+                    <td style="vertical-align: unset;">@myModel.DateModified</td>
+                    <td style="vertical-align: unset;"><input type="button" onclick="getData('/@Model.ControllerName/Edit?id=@myModel.Id', null, onLoadModificationModalSuccess)" class="btn btn-link" value="Edit" /></td>
+                    <td style="vertical-align: unset;"><input type="button" onclick="showConfirmationDialog('Do you really want to delete this?', 'This action can not be undone.', deleteRecordConfirmed, '@Model.ControllerName', '@myModel.Id')" class="btn btn-link" value="Delete" /></td>
+                </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+<div class="col-3">
+    <span>Page: @Html.ValueFor(m => m.CurrentPage)</span>
+</div>

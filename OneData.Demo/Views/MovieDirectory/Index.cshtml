@@ -1,0 +1,44 @@
+﻿@model OneData.Demo.ViewModels.MovieDirectoryViewModel
+@{
+    ViewData["Title"] = "Movie Directory";
+}
+
+<div class="container pt-5">
+    @{ int index = 0; }
+    @for (int i = 0; i < Math.Ceiling(decimal.Parse(Model.Movies.Count.ToString()) / decimal.Parse(Model.MaxItemsPerLine.ToString())); i++)
+    {
+        <div class="row pb-4">
+            <div class="card-deck">
+                @for (int x = 0; x < Model.MaxItemsPerLine; x++, index++)
+                {
+                    if (index < Model.Movies.Count)
+                    {
+                        <div class="card">
+                            <img class="card-img-top" src="@Model.Movies[index].CoverUrl" alt="@Model.Movies[index].Name">
+                            <div class="card-body">
+                                <h5 class="card-title">@Model.Movies[index].Name</h5>
+                                <p class="card-text">@Model.Movies[index].Description</p>
+                            </div>
+                            <div class="card-footer">
+                                <small class="text-muted">From @Model.Movies[index].OriginName, Year @Model.Movies[index].Year </small>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="card">
+                            <img class="card-img-top" src="" alt="">
+                            <div class="card-body">
+                                <h5 class="card-title">Title</h5>
+                                <p class="card-text">Description</p>
+                            </div>
+                            <div class="card-footer">
+                                <small class="text-muted">From Origin, Year #</small>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    }
+</div>
