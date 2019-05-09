@@ -47,7 +47,7 @@ function saveFormData(isNew, controllerName, iconUrl) {
         success: function (response) {
             showNotification("Exito.", successMessage, iconUrl);
             $("#tableData").html(response);
-            hideModificationModal();
+            toggleModificationModal();
         },
         error: function (response) {
             showNotification("Error.", response.responseText, iconUrl);
@@ -240,7 +240,7 @@ function postData(url, successMessage, successCallback, firstParameter = null, s
     });
 }
 
-function toggleModificacionModal() {
+function toggleModificationModal() {
     $("#modificationModal").toggle();
 }
 
