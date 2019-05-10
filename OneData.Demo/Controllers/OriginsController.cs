@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using OneData.Demo.Enums;
 using OneData.Demo.Extensions;
 using OneData.Demo.Models;
 using OneData.Demo.ViewModels;
 using OneData.Extensions;
 using OneData.Models;
+using System;
 
 namespace OneData.Demo.Controllers
 {
@@ -16,9 +13,9 @@ namespace OneData.Demo.Controllers
     {
         public IActionResult Index()
         {
-            OriginsViewModel viewModel = GetNewViewModel(0, DisplayModes.Catalog, null);
             HttpContext.Session.Set("LastQuery", string.Empty);
             HttpContext.Session.Set("PageOffset", 0);
+            OriginsViewModel viewModel = GetNewViewModel(0, DisplayModes.Catalog, null);
             return View(viewModel);
         }
 
@@ -88,15 +85,15 @@ namespace OneData.Demo.Controllers
         }
 
         [HttpPost]
-        public IActionResult Search(string taskName)
+        public IActionResult Search(string searchQuery)
         {
-            if (string.IsNullOrWhiteSpace(taskName))
+            if (string.IsNullOrWhiteSpace(searchQuery))
             {
                 return RedirectToAction("Index");
             }
             else
             {
-                HttpContext.Session.Set("LastQuery", taskName);
+                HttpContext.Session.Set("LastQuery", searchQuery);
                 return View("Index", GetNewViewModel(0, DisplayModes.Search, null));
             }
         }

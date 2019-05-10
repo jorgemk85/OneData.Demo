@@ -13,9 +13,9 @@ namespace OneData.Demo.Controllers
     {
         public IActionResult Index()
         {
-            MoviesViewModel viewModel = GetNewViewModel(0, DisplayModes.Catalog, null);
             HttpContext.Session.Set("LastQuery", string.Empty);
             HttpContext.Session.Set("PageOffset", 0);
+            MoviesViewModel viewModel = GetNewViewModel(0, DisplayModes.Catalog, null);
             return View(viewModel);
         }
 
