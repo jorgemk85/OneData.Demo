@@ -11,11 +11,11 @@ namespace OneData.Demo.Models
     [DataTable("origins")]
     public class Origin : Cope<Origin>, IManageable
     {
-        [PrimaryKeyProperty]
+        [PrimaryKey]
         public Guid Id { get; set; }
-        [DateCreatedProperty]
+        [DateCreated]
         public DateTime DateCreated { get; set; }
-        [DateModifiedProperty]
+        [DateModified]
         public DateTime DateModified { get; set; }
 
         public string Name { get; set; }

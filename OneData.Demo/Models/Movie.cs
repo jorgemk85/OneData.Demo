@@ -10,11 +10,11 @@ namespace OneData.Demo.Models
     [DataTable("movies")]
     public class Movie : Cope<Movie>, IManageable
     {
-        [PrimaryKeyProperty]
+        [PrimaryKey]
         public Guid Id { get; set; }
-        [DateCreatedProperty]
+        [DateCreated]
         public DateTime DateCreated { get; set; }
-        [DateModifiedProperty]
+        [DateModified]
         public DateTime DateModified { get; set; }
 
         [DisplayName("Movie Name")]
