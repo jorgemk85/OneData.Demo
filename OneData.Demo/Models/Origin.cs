@@ -18,7 +18,10 @@ namespace OneData.Demo.Models
         [DateModified]
         public DateTime DateModified { get; set; }
 
+        [Unique]
         public string Name { get; set; }
+        [Default(16)]
+        public int? IntWithoutValue { get; set; }
 
         public Origin()
         {
