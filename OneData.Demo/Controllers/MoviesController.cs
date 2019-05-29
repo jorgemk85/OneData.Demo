@@ -61,7 +61,7 @@ namespace OneData.Demo.Controllers
                 }
                 else
                 {
-                    viewModel.Collection = Movie.SelectList(q => q.Name.Contains(lastQuery), new QueryOptions() { MaximumResults = 10, Offset = currentPage * 10 });
+                    viewModel.Collection = Movie.SelectList(q => q.Name.Contains(lastQuery, StringComparison.InvariantCultureIgnoreCase), new QueryOptions() { MaximumResults = 10, Offset = currentPage * 10 });
                 }
                 LoadCatalogs(ref viewModel);
             }

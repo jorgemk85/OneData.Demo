@@ -7,5 +7,6 @@ namespace OneData.Demo.ViewModels
     {
         public List<Origin> Collection { get; set; }
         public Origin Selected { get; set; }
+        public bool IsFromCache { get; set; }
     }
 }

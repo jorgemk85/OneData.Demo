@@ -2,13 +2,10 @@
 using OneData.Interfaces;
 using OneData.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace OneData.Demo.Models
 {
-    [DataTable("origins")]
+    [DataTable("origins"), CacheEnabled(30)]
     public class Origin : Cope<Origin>, IManageable
     {
         [PrimaryKey]

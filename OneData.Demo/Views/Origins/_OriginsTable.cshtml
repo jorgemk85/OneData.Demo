@@ -21,18 +21,18 @@
             @{
                 foreach (Origin myModel in Model.Collection)
                 {
-                <tr>
-                    <td style="vertical-align: unset;">@myModel.Name</td>
-                    <td style="vertical-align: unset;">@myModel.DateCreated</td>
-                    <td style="vertical-align: unset;">@myModel.DateModified</td>
-                    <td style="vertical-align: unset;"><input type="button" onclick="getData('/@Model.ControllerName/Edit?id=@myModel.Id', null, onLoadModificationModalSuccess)" class="btn btn-link" value="Edit" /></td>
-                    <td style="vertical-align: unset;"><input type="button" onclick="showConfirmationDialog('Do you really want to delete this?', 'This action can not be undone.', deleteRecordConfirmed, '@Model.ControllerName', '@myModel.Id')" class="btn btn-link" value="Delete" /></td>
-                </tr>
+                    <tr>
+                        <td style="vertical-align: unset;">@myModel.Name</td>
+                        <td style="vertical-align: unset;">@myModel.DateCreated</td>
+                        <td style="vertical-align: unset;">@myModel.DateModified</td>
+                        <td style="vertical-align: unset;"><input type="button" onclick="getData('/@Model.ControllerName/Edit?id=@myModel.Id', null, onLoadModificationModalSuccess)" class="btn btn-link" value="Edit" /></td>
+                        <td style="vertical-align: unset;"><input type="button" onclick="showConfirmationDialog('Do you really want to delete this?', 'This action can not be undone.', deleteRecordConfirmed, '@Model.ControllerName', '@myModel.Id')" class="btn btn-link" value="Delete" /></td>
+                    </tr>
                 }
             }
         </tbody>
     </table>
 </div>
 <div class="col-3">
-    <span>Page: @Html.ValueFor(m => m.CurrentPage)</span>
+    <span>Page: @Html.ValueFor(m => m.CurrentPage) | Data from: @(Model.IsFromCache ? "Cache" : "DB")</span>
 </div>

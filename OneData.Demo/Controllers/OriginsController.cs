@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using OneData.DAO;
 using OneData.Demo.Enums;
 using OneData.Demo.Extensions;
 using OneData.Demo.Models;
@@ -45,6 +46,8 @@ namespace OneData.Demo.Controllers
 
         private OriginsViewModel GetNewViewModel(int currentPage, DisplayModes displayMode, Guid? searchId)
         {
+            Result<Origin> result = null;
+            QueryOptions queryOptions = new QueryOptions() { MaximumResults = 10, Offset = currentPage * 10 };
             OriginsViewModel viewModel = new OriginsViewModel()
             {
                 CurrentPage = currentPage + 1,
@@ -57,31 +60,27 @@ namespace OneData.Demo.Controllers
                 string lastQuery = HttpContext.Session.Get<string>("LastQuery");
                 if (string.IsNullOrWhiteSpace(lastQuery))
                 {
-                    viewModel.Collection = Origin.SelectAll(new QueryOptions() { MaximumResults = 10, Offset = currentPage * 10 });
+                    result = Manager<Origin>.SelectAll(queryOptions);
+                    viewModel.IsFromCache = result.IsFromCache;
+                    viewModel.Collection = result.Data.ToList();
                 }
                 else
                 {
-                    viewModel.Collection = Origin.SelectList(q => q.Name.Contains(lastQuery), new QueryOptions() { MaximumResults = 10, Offset = currentPage * 10 });
+                    result = Manager<Origin>.Select(q => q.Name.Contains(lastQuery, StringComparison.InvariantCultureIgnoreCase), queryOptions);
+                    viewModel.IsFromCache = result.IsFromCache;
+                    viewModel.Collection = result.Data.ToList();
                 }
-                LoadCatalogs(ref viewModel);
             }
             else if (displayMode == DisplayModes.Edit)
             {
                 viewModel.Selected = Origin.Select(type => type.Id == searchId.GetValueOrDefault());
-                LoadCatalogs(ref viewModel);
             }
             else if (displayMode == DisplayModes.New)
             {
                 viewModel.Selected = new Origin();
-                LoadCatalogs(ref viewModel);
             }
 
             return viewModel;
-        }
-
-        private void LoadCatalogs(ref OriginsViewModel viewModel)
-        {
-
         }
 
         [HttpPost]
